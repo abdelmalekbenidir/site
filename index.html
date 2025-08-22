@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    
+    <title>ARTOFELE | AI-Powered Crypto Analytics on Solana</title>
+    <meta name="description" content="Discover ARTOFELE (ART), a decentralized token on Solana powering an AI analytics platform. Join us for transparency, innovation, and community growth." />
+    <meta name="keywords" content="ARTOFELE, ART, Solana, Cryptocurrency, AI Analytics, Decentralized, Token, Blockchain" />
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Schema Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "name": "ARTOFELE",
+          "url": "https://www.artofele.com",
+          "logo": "https://www.artofele.com/logo.png",
+          "sameAs": [
+            "https://twitter.com/artofele",
+            "https://t.me/artofele"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "contact@artofele.com",
+            "contactType": "customer support"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "name": "ARTOFELE",
+          "url": "https://www.artofele.com",
+          "description": "The official website for ARTOFELE, a decentralized token on the Solana blockchain connected to an AI-powered cryptocurrency analytics platform."
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is ARTOFELE?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "ARTOFELE is a decentralized token on the Solana blockchain that is intrinsically linked to an AI-powered cryptocurrency analytics platform. Our project is built on the core principles of transparency, innovation, and community growth."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How to buy ART?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can purchase ART tokens on decentralized exchanges (DEXs) on the Solana network, such as Raydium or Jupiter. You will need a Solana-compatible wallet (like Phantom or Solflare) funded with SOL to swap for ART."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the AI analysis platform work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Our AI platform leverages machine learning algorithms to analyze vast amounts of blockchain data and market trends. It provides users with actionable insights, including live price tracking, social sentiment analysis, and whale movement tracking, to help them make informed investment decisions."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <script>
+      // IIFE to prevent flash of incorrect theme
+      (function() {
+        try {
+          var theme = localStorage.getItem('artofele-theme');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000000');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.1/",
+    "react": "https://esm.sh/react@^19.1.1",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.8.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "recharts": "https://esm.sh/recharts@^3.1.2",
+    "@google/genai": "https://esm.sh/@google/genai",
+    "i18next": "https://esm.sh/i18next@^23.11.5",
+    "react-i18next": "https://esm.sh/react-i18next@^14.1.2",
+    "i18next-browser-languagedetector": "https://esm.sh/i18next-browser-languagedetector@^8.0.0"
+  }
+}
+</script>
+<style>
+  :root {
+    --background: #ffffff;
+    --background-alt: #f9fafb; /* gray-50 */
+    --text-primary: #111827; /* gray-900 */
+    --text-secondary: #4b5563; /* gray-600 */
+    --text-tertiary: #6b7280; /* gray-500 */
+    --card-background: #ffffff;
+    --border-color: #e5e7eb; /* gray-200 */
+    --header-background: rgba(255, 255, 255, 0.8);
+    --input-background: #f3f4f6; /* gray-100 */
+    --input-border: #d1d5db; /* gray-300 */
+    --floating-label-bg: #ffffff;
+    --social-icon-color: #6b7280;
+    --social-icon-hover-color: #111827;
+    --cta-dark-bg: #111827; /* gray-900 */
+    --cta-dark-text: #ffffff;
+    --recharts-tooltip-bg: rgba(255, 255, 255, 0.9);
+  }
+
+  html.dark {
+    color-scheme: dark;
+    --background: #000000; /* black */
+    --background-alt: #111827; /* gray-900 */
+    --text-primary: #f9fafb; /* gray-50 */
+    --text-secondary: #9ca3af; /* gray-400 */
+    --text-tertiary: #6b7280; /* gray-500 */
+    --card-background: #111827; /* gray-900 */
+    --border-color: #374151; /* gray-700 */
+    --header-background: rgba(17, 24, 39, 0.8); /* gray-900 */
+    --input-background: #374151; /* gray-700 */
+    --input-border: #4b5563; /* gray-600 */
+    --floating-label-bg: #111827; /* gray-900 */
+    --social-icon-color: #9ca3af;
+    --social-icon-hover-color: #ffffff;
+    --cta-dark-bg: #000000;
+    --cta-dark-text: #f9fafb;
+    --recharts-tooltip-bg: rgba(17, 24, 39, 0.9);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+  }
+
+  /* Theme utility classes */
+  .bg-theme-bg { background-color: var(--background); }
+  .bg-theme-bg-alt { background-color: var(--background-alt); }
+  .text-theme-primary { color: var(--text-primary); }
+  .text-theme-secondary { color: var(--text-secondary); }
+  .text-theme-tertiary { color: var(--text-tertiary); }
+  .bg-theme-card { background-color: var(--card-background); }
+  .border-theme { border-color: var(--border-color); }
+  .social-icon { color: var(--social-icon-color); }
+  .social-icon:hover { color: var(--social-icon-hover-color); }
+  .cta-dark-section { background-color: var(--cta-dark-bg); color: var(--cta-dark-text); }
+
+  .gradient-bg {
+    background: linear-gradient(180deg, #00c9a7, #00a7e1, #0072ff);
+  }
+  .gradient-text {
+    background: linear-gradient(180deg, #00c9a7, #00a7e1, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
+  .fade-in-left { animation: fadeInLeft 0.7s ease-out forwards; }
+  .fade-in-right { animation: fadeInRight 0.7s ease-out forwards; }
+  .zoom-in { animation: zoomIn 0.7s ease-out forwards; }
+  .fade-in { animation: fadeIn 0.7s ease-out forwards; }
+
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; } .delay-5 { animation-delay: 0.5s; } .delay-6 { animation-delay: 0.6s; }
+  .delay-7 { animation-delay: 0.7s; } .delay-8 { animation-delay: 0.8s; } .delay-9 { animation-delay: 0.9s; }
+  .delay-10 { animation-delay: 1.0s; }
+
+  /* Nav Link Underline */
+  .nav-link-underline { position: relative; padding-bottom: 6px; -webkit-tap-highlight-color: transparent; }
+  .nav-link-underline::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: linear-gradient(90deg, #00c9a7, #00a7e1, #0072ff); transform: scaleX(0); transform-origin: right; transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+  [dir="rtl"] .nav-link-underline::after { transform-origin: left; }
+  .nav-link-underline:hover::after, .nav-link-underline.active::after { transform: scaleX(1); transform-origin: left; }
+  [dir="rtl"] .nav-link-underline:hover::after, [dir="rtl"] .nav-link-underline.active::after { transform-origin: right; }
+  .nav-link-underline.active { color: #00c9a7; }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--background-alt); }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #00c9a7, #00a7e1, #0072ff); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #00b896, #0096d0, #0061e8); }
+
+  /* 3D Card Tilt Effect */
+  .tilt-card { transform-style: preserve-3d; transition: transform 0.4s ease-out; }
+  .tilt-card:hover { transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) scale3d(1.05, 1.05, 1.05); }
+  [dir="rtl"] .tilt-card:hover { transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale3d(1.05, 1.05, 1.05); }
+  .tilt-card-inner { transition: box-shadow 0.4s ease-out; }
+  .tilt-card:hover .tilt-card-inner { box-shadow: 0 25px 50px -12px rgba(0, 167, 225, 0.25); }
+  html.dark .tilt-card:hover .tilt-card-inner { box-shadow: 0 25px 50px -12px rgba(0, 167, 225, 0.15); }
+
+  /* Contact Form Floating Labels */
+  .form-group { position: relative; margin-bottom: 1.5rem; }
+  .form-input { width: 100%; background-color: var(--input-background); border: 1px solid var(--input-border); border-radius: 0.375rem; padding: 0.75rem 1rem; color: var(--text-primary); transition: 0.2s ease all; }
+  .form-label { position: absolute; top: 0.75rem; left: 1rem; color: var(--text-tertiary); pointer-events: none; transition: 0.2s ease all; }
+  [dir="rtl"] .form-label { left: auto; right: 1rem; }
+  .form-input:focus { outline: none; box-shadow: 0 0 0 2px #00a7e1; border-color: transparent; background-color: var(--card-background); }
+  .form-input:focus ~ .form-label, .form-input:not(:placeholder-shown) ~ .form-label { top: -0.65rem; left: 0.75rem; font-size: 0.75rem; color: #00a7e1; padding: 0 4px; background-color: var(--floating-label-bg); }
+  [dir="rtl"] .form-input:focus ~ .form-label, [dir="rtl"] .form-input:not(:placeholder-shown) ~ .form-label { left: auto; right: 0.75rem; }
+  textarea.form-input ~ .form-label { top: 0.75rem; }
+  textarea.form-input:focus ~ .form-label, textarea.form-input:not(:placeholder-shown) ~ .form-label { top: -0.65rem; }
+
+  /* 3D Solana Logo */
+  .solana-logo-container { perspective: 800px; display: flex; justify-content: center; align-items: center; min-height: 160px; }
+  .solana-logo-3d { width: 100px; height: 100px; position: relative; transform-style: preserve-3d; animation: float-rotate-3d 25s ease-in-out infinite; }
+  @keyframes float-rotate-3d { 0% { transform: translateY(0px) rotateY(0deg) rotateX(20deg); } 50% { transform: translateY(-15px) rotateY(180deg) rotateX(20deg); } 100% { transform: translateY(0px) rotateY(360deg) rotateX(20deg); } }
+  .solana-part { position: absolute; width: 34px; height: 67px; opacity: 0.9; }
+  .solana-part-1 { background: linear-gradient(165deg, #9945FF, #19FB9B); transform: rotateY(0deg) translateZ(29px) skewY(30deg); }
+  .solana-part-2 { background: linear-gradient(165deg, #19FB9B, #00C9A7); transform: rotateY(120deg) translateZ(29px) skewY(30deg); }
+  .solana-part-3 { background: linear-gradient(165deg, #00C9A7, #0072FF); transform: rotateY(240deg) translateZ(29px) skewY(30deg); }
+
+  /* Back to Top Button */
+  .back-to-top-button { position: fixed; bottom: 2rem; right: 2rem; z-index: 50; width: 50px; height: 50px; background-color: var(--card-background); border-radius: 50%; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease, border-color 0.3s ease; opacity: 0; transform: translateY(20px); visibility: hidden; border: 1px solid var(--border-color); }
+  [dir="rtl"] .back-to-top-button { right: auto; left: 2rem; }
+  .back-to-top-button.visible { opacity: 1; transform: translateY(0); visibility: visible; }
+  .back-to-top-button:hover { transform: scale(1.1); box-shadow: 0 8px 16px rgba(0, 167, 225, 0.2); }
+  .back-to-top-button img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; transition: filter 0.3s ease; }
+  html.dark .back-to-top-button { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); }
+  html.dark .back-to-top-button:hover { border-color: #00a7e1; box-shadow: 0 8px 24px rgba(0, 167, 225, 0.3); }
+  html.dark .back-to-top-button img { filter: drop-shadow(0 0 3px rgba(0, 199, 167, 0.4)); }
+  html.dark .back-to-top-button:hover img { filter: drop-shadow(0 0 6px rgba(0, 199, 167, 0.6)); }
+
+  /* Theme Toggle */
+  .theme-toggle { position: relative; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: none; background: none; cursor: pointer; color: var(--social-icon-color); transition: color 0.3s ease; }
+  .theme-toggle:hover { color: var(--social-icon-hover-color); }
+  .theme-toggle svg { position: absolute; transition: transform 0.5s ease, opacity 0.5s ease; width: 20px; height: 20px; }
+  .theme-toggle .sun.active { transform: rotate(0deg) scale(1); opacity: 1; }
+  .theme-toggle .sun { transform: rotate(90deg) scale(0); opacity: 0; }
+  .theme-toggle .moon.active { transform: rotate(0deg) scale(1); opacity: 1; }
+  .theme-toggle .moon { transform: rotate(-90deg) scale(0); opacity: 0; }
+  
+  /* Hero Section Particle Animation */
+  .hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  /* Hero Section Creative Text Animation */
+  .dynamic-text-wrapper {
+    display: inline-grid;
+    vertical-align: bottom; /* Aligns with the rest of the text */
+    text-align: left; /* Ensures phrases align left */
+    height: 1.2em; /* Prevents layout shift. Adjust if font-size changes line-height. */
+  }
+  [dir="rtl"] .dynamic-text-wrapper {
+    text-align: right;
+  }
+  .dynamic-text-wrapper > span {
+    grid-area: 1 / 1;
+    opacity: 0;
+    animation: slideAndFade 10s infinite; /* 2.5s per word for 4 words */
+    white-space: nowrap; /* Keep multi-word phrases on one line */
+  }
+
+  .dynamic-text-wrapper > span:nth-child(1) { animation-delay: 0s; }
+  .dynamic-text-wrapper > span:nth-child(2) { animation-delay: 2.5s; }
+  .dynamic-text-wrapper > span:nth-child(3) { animation-delay: 5s; }
+  .dynamic-text-wrapper > span:nth-child(4) { animation-delay: 7.5s; }
+
+  @keyframes slideAndFade {
+    /* Animation for one word: enter, hold, exit */
+    0% { transform: translateY(100%); opacity: 0; }
+    5% { transform: translateY(0); opacity: 1; }
+    20% { transform: translateY(0); opacity: 1; }
+    25% { transform: translateY(-100%); opacity: 0; }
+    100% { transform: translateY(-100%); opacity: 0; }
+  }
+
+  /* Preloader */
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+  }
+  .preloader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .preloader-logo {
+    width: 80px;
+    height: 80px;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+  }
+
+  /* --- Roadmap Page --- */
+  .roadmap-container {
+    scrollbar-width: thin;
+    scrollbar-color: #00a7e1 var(--background-alt);
+  }
+  .roadmap-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  .roadmap-container::-webkit-scrollbar-track {
+    background: var(--background-alt);
+    border-radius: 10px;
+  }
+  .roadmap-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #00c9a7, #00a7e1, #0072ff);
+    border-radius: 10px;
+  }
+  .roadmap-timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    transform: translateY(-50%);
+    width: 100%;
+    left: -50%;
+    height: 2px;
+    background-color: var(--border-color);
+    z-index: -1;
+  }
+  [dir="rtl"] .roadmap-timeline-item::before {
+    left: auto;
+    right: -50%;
+  }
+  .roadmap-timeline-item:first-child::before {
+    width: 50%;
+    left: 0;
+  }
+  [dir="rtl"] .roadmap-timeline-item:first-child::before {
+    left: auto;
+    right: 0;
+  }
+  .roadmap-timeline-item:last-child::before {
+    width: 50%;
+  }
+</style>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
